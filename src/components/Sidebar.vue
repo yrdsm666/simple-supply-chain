@@ -40,18 +40,13 @@ export default {
         const items = [
             {
                 icon: "el-icon-lx-home",
-                index: "/dashboard",
-                title: "系统首页",
+                index: "/materialManagement",
+                title: "材料管理",
             },
             {
                 icon: "el-icon-lx-redpacket_fill",
                 index: "/donate",
                 title: "支持作者",
-            },
-            {
-              icon: "el-icon-lx-redpacket_fill",
-              index: "/table",
-              title: "表格",
             },
         ];
 

@@ -4,17 +4,17 @@ import Home from "../views/Home.vue";
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
+        redirect: '/materialManagement'
     }, {
         path: "/",
         name: "Home",
         component: Home,
         children: [
             {
-                path: "/dashboard",
-                name: "dashboard",
+                path: "/materialManagement",
+                name: "materialManagement",
                 meta: {
-                    title: '系统首页'
+                    title: '材料管理'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Material.vue")
             }, {
@@ -24,13 +24,6 @@ const routes = [
                     title: '鼓励作者'
                 },
                 component: () => import ( /* webpackChunkName: "donate" */ "../views/Donate.vue")
-            }, {
-                path: "/table",
-                name: "table",
-                meta: {
-                    title: '表格'
-                },
-                component: () => import ( /* webpackChunkName: "donate" */ "../views/BaseTable.vue")
             }
         ]
     }, {

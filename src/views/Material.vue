@@ -176,7 +176,7 @@
                 </el-dialog>
             </div>
             <div class="handle-row">
-                <el-button type="primary" @click="addDialogVisible=true;deleteSelectMaterial">添加</el-button>
+                <el-button type="primary" @click="addDialogVisible=true">添加</el-button>
                 <el-button type="primary" @click="deleteSelectMaterial">删除</el-button>
             </div>
         </div>
@@ -240,18 +240,6 @@ export default {
         let editDialogVisible = ref(false);
         let addDialogVisible= ref(false);
 
-        // const messageAppear = ( rowData ) => {
-        //     // console.log(rowData);
-        //     if (rowData.type==='text'){
-        //         // dialogVisible = true;
-        //         tableDate.now_message = rowData.content;
-        //     }else if(rowData.type==='file'){
-        //         window.open(rowData.url,"_blank");
-        //     }else{
-        //         ElMessage.error("类型错误");
-        //     }
-        // };
-
         const handleSelectionChange = (val) => {
             console.log(val);
             tableDate.multipleSelection = val;
@@ -314,11 +302,6 @@ export default {
                         getMyMaterialData();
                         ElMessage.success("修改成功！");
                     }).catch((error) => {
-                        // //修改失败时 row 也变了，但是不应该变，所以重新赋值一下
-                        // tableDate.displayMaterials = [].concat(tableDate.materials);
-                        // console.log(tableDate.materials);
-                        // console.log(tableDate.displayMaterials);
-                        // console.log(error);
                         ElMessage.error("修改失败");
                     });
                 } else {
@@ -367,13 +350,6 @@ export default {
         //         })
         //         .catch(() => {});
         // }
-
-        // const multipleTable = ref(null);
-        // onMounted函数每勾选一次便会执行一次
-        // onMounted(() => {
-        //     console.log(multipleTable.value) // 此时在mounted周期中可以访问到ref
-        //     //multipleTable.value.clearSelection();
-        // })
 
         const deleteSelectMaterial = () => {
             ElMessageBox.confirm("确定要删除选中吗？", "提示", {
@@ -467,8 +443,6 @@ export default {
             editDialogVisible,
             detailDialogVisible,
             addDialogVisible,
-            // multipleTable,
-            // messageAppear,
             handleSearchInputReset,
             handleSelectionChange,
             handleModify,
