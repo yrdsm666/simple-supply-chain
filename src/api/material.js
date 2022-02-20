@@ -21,6 +21,16 @@ export const modifyMaterial=(query) => {
     })
 }
 
+export const addMaterial=(query) => {
+    console.log('add a material');
+    return request({
+        //url: '/register_fail.json',
+        url: './addMaterial.json',
+        method: 'post',
+        data: query,
+    })
+}
+
 export const deleteMyMaterial=(query) => {
     console.log('delete a material');
     console.log(query);

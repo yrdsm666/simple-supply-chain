@@ -73,7 +73,7 @@
                     title="材料详细信息"
                     width="30%"
                 >
-                    <el-form ref="formRef" :model="tableDate.nowMaterial" label-width="70px">
+                    <el-form :model="tableDate.nowMaterial" label-width="70px">
                         <el-form-item label="材料编号">
                             <el-input v-model="tableDate.nowMaterial.number" :readonly="true"></el-input>
                         </el-form-item>
@@ -104,20 +104,25 @@
                     title="编辑材料信息"
                     width="30%"
                 >
-                    <el-form ref="formRef" :model="tableDate.nowMaterial" label-width="70px">
+                    <el-form ref="formRef1" :model="tableDate.nowMaterial" :rules="rules" label-width="80px">
                         <el-form-item label="材料编号">
                             <el-input v-model="tableDate.nowMaterial.number" disabled></el-input>
                         </el-form-item>
-                        <el-form-item label="材料名称">
+                        <el-form-item label="材料名称" prop="name">
                             <el-input v-model="tableDate.nowMaterial.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="材料类别">
-                            <el-input v-model="tableDate.nowMaterial.type"></el-input>
+                        <el-form-item label="材料类别" prop="type">
+                            <el-select v-model="tableDate.nowMaterial.type" placeholder="请选择" style="width: 100%">
+                                <el-option label="金属材料" value="金属材料"></el-option>
+                                <el-option label="无机非金属材料" value="无机非金属材料"></el-option>
+                                <el-option label="复合材料" value="复合材料"></el-option>
+                                <el-option label="高分子材料" value="高分子材料"></el-option>
+                            </el-select>
                         </el-form-item>
-                        <el-form-item label="材料数目">
+                        <el-form-item label="材料数目" prop="count">
                             <el-input v-model="tableDate.nowMaterial.count"></el-input>
                         </el-form-item>
-                        <el-form-item label="拥有者">
+                        <el-form-item label="拥有者" prop="owner">
                             <el-input v-model="tableDate.nowMaterial.owner"></el-input>
                         </el-form-item>
                         <el-form-item label="描述">
@@ -125,15 +130,54 @@
                         </el-form-item>
                     </el-form>
                     <template #footer>
-                            <span class="dialog-footer">
-                                <el-button type="primary" @click="editDialogVisible = false;handleModify()">确定</el-button>
-                            </span>
+                        <span class="dialog-footer">
+                            <el-button @click="editDialogVisible = false;">取消</el-button>
+                            <el-button type="primary" @click="editDialogVisible = false;handleModify()">确定</el-button>
+                        </span>
+                    </template>
+                </el-dialog>
+                <el-dialog
+                    v-model="addDialogVisible"
+                    title="新增材料信息"
+                    width="30%"
+                >
+                    <el-form ref="formRef2" :model="newMaterial" :rules="rules" label-width="80px">
+                        <el-form-item label="材料编号" prop="number">
+                            <el-input v-model="newMaterial.number">M</el-input>
+                        </el-form-item>
+                        <el-form-item label="材料名称" prop="name">
+                            <el-input v-model="newMaterial.name"></el-input>
+                        </el-form-item>
+                        <el-form-item label="材料类别" prop="type">
+                            <el-select v-model="newMaterial.type" placeholder="请选择" style="width: 100%">
+                                <el-option label="金属材料" value="metal"></el-option>
+                                <el-option label="无机非金属材料" value="nonmetal"></el-option>
+                                <el-option label="复合材料" value="compound"></el-option>
+                                <el-option label="高分子材料" value="polymer"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="材料数目" prop="count">
+                            <el-input v-model="newMaterial.count"></el-input>
+                        </el-form-item>
+                        <el-form-item label="拥有者" prop="owner">
+                            <el-input v-model="newMaterial.owner"></el-input>
+                        </el-form-item>
+                        <el-form-item label="描述">
+                            <el-input v-model="newMaterial.description" type="textarea" :rows="3"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <template #footer>
+                        <span class="dialog-footer">
+                            <el-button @click="addDialogVisible = false;">取消</el-button>
+                            <el-button type="primary" @click="editDialogVisible = false;addNewMaterialReset()">重置</el-button>
+                            <el-button type="primary" @click="addDialogVisible = false;addNewMaterial()">确定</el-button>
+                        </span>
                     </template>
                 </el-dialog>
             </div>
             <div class="handle-row">
-                <el-button type="primary" @click="deleteSelectMaterial">添加</el-button>
-                <el-button type="primary" @click="deleteSelectMaterial">删除选中</el-button>
+                <el-button type="primary" @click="addDialogVisible=true;deleteSelectMaterial">添加</el-button>
+                <el-button type="primary" @click="deleteSelectMaterial">删除</el-button>
             </div>
         </div>
     </div>
@@ -143,29 +187,58 @@
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
-import { getMaterial, deleteMyMaterial, modifyMaterial } from "../api/material";
+import { getMaterial, deleteMyMaterial, modifyMaterial, addMaterial } from "../api/material";
 
 export default {
     name: "tabs",
     setup() {
         // const message = ref("first");
         const multipleTableRef = ref();
+        const formRef1 = ref(null);
+        const formRef2 = ref(null);
         const tableDate = reactive({
             materials: [
             ],
             displayMaterials: [],
-            nowMaterial: undefined, //这两个域必须在tableDate里面，不然后面会报奇奇怪怪的错
+            nowMaterial: undefined,
             multipleSelection: [],
             searchMaterialNumber: "",
             searchMaterialName: "",
         });
 
-        const newMaterial = reactive({
+        const rules = {
+            number: [
+                { required: true, message: "请输入编号", trigger: "blur" },
+                { min:1, max:20, message: "输入过长", trigger: "blur" },
+            ],
+            name: [
+                { required: true, message: "请输入名称", trigger: "blur" },
+                { min:1, max:20, message: "名称过长", trigger: "blur" },
+            ],
+            type: [
+                { required: true, message: "请选择类型", trigger: "blur" },
+            ],
+            count: [
+                { required: true, message: "请输入数目", trigger: "blur" },
+            ],
+            owner: [
+                { required: true, message: "请输入拥有者", trigger: "blur" },
+                { min:1, max:20, message: "输入过长", trigger: "blur" },
+            ],
+        };
 
+        const newMaterial = reactive({
+            number:"M",
+            name:undefined,
+            type:undefined,
+            count:undefined,
+            owner:undefined,
+            description:undefined,
         });
 
         let detailDialogVisible = ref(false);
         let editDialogVisible = ref(false);
+        let addDialogVisible= ref(false);
 
         // const messageAppear = ( rowData ) => {
         //     // console.log(rowData);
@@ -233,16 +306,26 @@ export default {
         }
 
         const handleModify = () => {
-            modifyMaterial(tableDate.nowMaterial).then((res) => {
-                getMaterial();
-                ElMessage.success("修改成功！");
-            }).catch((error) => {
-                // //修改失败时 row 也变了，但是不应该变，所以重新赋值一下
-                // tableDate.displayMaterials = [].concat(tableDate.materials);
-                // console.log(tableDate.materials);
-                // console.log(tableDate.displayMaterials);
-                // console.log(error);
-                ElMessage.error("修改失败");
+            console.log(tableDate.nowMaterial);
+            formRef1.value.validate((valid) => {
+                console.log(valid);
+                if (valid) {
+                    modifyMaterial(tableDate.nowMaterial).then((res) => {
+                        getMyMaterialData();
+                        ElMessage.success("修改成功！");
+                    }).catch((error) => {
+                        // //修改失败时 row 也变了，但是不应该变，所以重新赋值一下
+                        // tableDate.displayMaterials = [].concat(tableDate.materials);
+                        // console.log(tableDate.materials);
+                        // console.log(tableDate.displayMaterials);
+                        // console.log(error);
+                        ElMessage.error("修改失败");
+                    });
+                } else {
+                    ElMessage.error("信息不完整，请更正后提交！");
+                    formRef1.value.resetFields();
+                    return false;
+                }
             });
         }
         // const handleRead = (index) => {
@@ -258,34 +341,34 @@ export default {
         //     const item = state.recycle.splice(index, 1);
         //     state.read = item.concat(state.read);
         // };
-        const deleteMaterial = (index) => {
-            ElMessageBox.confirm("确定要删除吗？", "提示", {
-              type: "warning",
-            })
-                .then(() => {
-                    const item = tableDate.materials.splice(index, 1);
-                    console.log(item);
-                    console.log(item[0].id);
-                    deleteMyMaterial({userId: "123", materialsId: [item[0].id]}).then((res) => {
-                        console.log('res:',res);
+        // const deleteMaterial = (index) => {
+        //     ElMessageBox.confirm("确定要删除吗？", "提示", {
+        //       type: "warning",
+        //     })
+        //         .then(() => {
+        //             const item = tableDate.materials.splice(index, 1);
+        //             console.log(item);
+        //             console.log(item[0].id);
+        //             deleteMyMaterial({userId: "123", materialsId: [item[0].id]}).then((res) => {
+        //                 console.log('res:',res);
+        //
+        //                 //在已选列表multipleSelection中清除刚刚被删的行
+        //                 let a = tableDate.multipleSelection.indexOf(item[0]);
+        //                 if(a !== -1){
+        //                     tableDate.multipleSelection.splice(a, 1);
+        //                 }
+        //                 console.log(tableDate.multipleSelection);
+        //                 ElMessage.success("删除成功！");
+        //
+        //             }).catch((error) => {
+        //                 console.log(error);
+        //                 ElMessage.error("删除失败");
+        //             });
+        //         })
+        //         .catch(() => {});
+        // }
 
-                        //在已选列表multipleSelection中清除刚刚被删的行
-                        let a = tableDate.multipleSelection.indexOf(item[0]);
-                        if(a !== -1){
-                            tableDate.multipleSelection.splice(a, 1);
-                        }
-                        console.log(tableDate.multipleSelection);
-                        ElMessage.success("删除成功！");
-
-                    }).catch((error) => {
-                        console.log(error);
-                        ElMessage.error("删除失败");
-                    });
-                })
-                .catch(() => {});
-        }
-
-        const multipleTable = ref(null);
+        // const multipleTable = ref(null);
         // onMounted函数每勾选一次便会执行一次
         // onMounted(() => {
         //     console.log(multipleTable.value) // 此时在mounted周期中可以访问到ref
@@ -330,6 +413,37 @@ export default {
                 .catch(() => {});
         }
 
+        const addNewMaterial = () => {
+            formRef2.value.validate((valid) => {
+                if (valid) {
+                    let temp = 0;
+                    (tableDate.materials).forEach(function (item,index) {
+                        console.log(item,index);
+                        if(newMaterial.number === item.number){
+                            temp = 1;
+                            ElMessage.error("编号已存在！");
+                            return false;
+                        }
+                    })
+                    if(temp===0){
+                        addMaterial(newMaterial).then((res) => {
+                            getMyMaterialData();
+                            ElMessage.success("添加成功！");
+                        }).catch((error) => {
+                            ElMessage.error("添加失败");
+                        });
+                    }
+                } else {
+                    ElMessage.error("信息不完整，请更正后提交！");
+                    return false;
+                }
+            });
+        }
+
+        const addNewMaterialReset = () => {
+            formRef2.value.resetFields();
+        }
+
         const getMyMaterialData = () => {
             getMaterial({userId: "123"}).then((res) => {
                 //multipleTableRef.value.clearSelection();
@@ -344,12 +458,16 @@ export default {
         getMyMaterialData();
 
         return {
-            // message,
+            rules,
+            formRef1,
+            formRef2,
             multipleTableRef,
             tableDate,
+            newMaterial,
             editDialogVisible,
             detailDialogVisible,
-            multipleTable,
+            addDialogVisible,
+            // multipleTable,
             // messageAppear,
             handleSearchInputReset,
             handleSelectionChange,
@@ -360,8 +478,10 @@ export default {
             // handleRestore,
             handleDetail,
             handleSearch,
-            deleteMaterial,
+            // deleteMaterial,
             deleteSelectMaterial,
+            addNewMaterial,
+            addNewMaterialReset,
         };
     },
 };
