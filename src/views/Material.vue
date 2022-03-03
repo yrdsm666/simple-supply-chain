@@ -31,7 +31,8 @@
                     </el-table-column>
                     <el-table-column label="编号">
                         <template #default="scope" >
-                            {{ scope.row.number }}
+                            <!-- {{ scope.row.number }} -->
+                            {{ scope.row.id }}
                         </template>
                     </el-table-column>
                     <el-table-column label="名称">
@@ -39,11 +40,11 @@
                             {{ scope.row.name }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="类型" prop="type" width="180">
+                    <!-- <el-table-column label="类型" prop="type" width="180">
                         <template #default="scope">
                             {{ scope.row.type }}
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column label="数目">
                         <template #default="scope" >
                             {{ scope.row.count }}
@@ -75,23 +76,24 @@
                 >
                     <el-form :model="tableDate.nowMaterial" label-width="70px">
                         <el-form-item label="材料编号">
-                            <el-input v-model="tableDate.nowMaterial.number" :readonly="true"></el-input>
+                            <!-- <el-input v-model="tableDate.nowMaterial.number" :readonly="true"></el-input> -->
+                            <el-input v-model="tableDate.nowMaterial.id" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称">
                           <el-input v-model="tableDate.nowMaterial.name" :readonly="true"></el-input>
                         </el-form-item>
-                        <el-form-item label="材料类别">
+                        <!-- <el-form-item label="材料类别">
                           <el-input v-model="tableDate.nowMaterial.type" :readonly="true"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
                         <el-form-item label="材料数目">
                           <el-input v-model="tableDate.nowMaterial.count" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者">
                             <el-input v-model="tableDate.nowMaterial.owner" :readonly="true"></el-input>
                         </el-form-item>
-                        <el-form-item label="描述">
+                        <!-- <el-form-item label="描述">
                             <el-input v-model="tableDate.nowMaterial.description" :readonly="true" type="textarea" :rows="3"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -106,28 +108,29 @@
                 >
                     <el-form ref="formRef1" :model="tableDate.nowMaterial" :rules="rules" label-width="80px">
                         <el-form-item label="材料编号">
-                            <el-input v-model="tableDate.nowMaterial.number" disabled></el-input>
+                            <!-- <el-input v-model="tableDate.nowMaterial.number" disabled></el-input> -->
+                            <el-input v-model="tableDate.nowMaterial.id" disabled></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称" prop="name">
                             <el-input v-model="tableDate.nowMaterial.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="材料类别" prop="type">
+                        <!-- <el-form-item label="材料类别" prop="type">
                             <el-select v-model="tableDate.nowMaterial.type" placeholder="请选择" style="width: 100%">
                                 <el-option label="金属材料" value="金属材料"></el-option>
                                 <el-option label="无机非金属材料" value="无机非金属材料"></el-option>
                                 <el-option label="复合材料" value="复合材料"></el-option>
                                 <el-option label="高分子材料" value="高分子材料"></el-option>
                             </el-select>
-                        </el-form-item>
+                        </el-form-item> -->
                         <el-form-item label="材料数目" prop="count">
                             <el-input v-model="tableDate.nowMaterial.count"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者" prop="owner">
                             <el-input v-model="tableDate.nowMaterial.owner"></el-input>
                         </el-form-item>
-                        <el-form-item label="描述">
+                        <!-- <el-form-item label="描述">
                             <el-input v-model="tableDate.nowMaterial.description" type="textarea" :rows="3"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -142,29 +145,30 @@
                     width="30%"
                 >
                     <el-form ref="formRef2" :model="newMaterial" :rules="rules" label-width="80px">
-                        <el-form-item label="材料编号" prop="number">
-                            <el-input v-model="newMaterial.number">M</el-input>
+                        <el-form-item label="材料编号" prop="id">
+                            <!-- <el-input v-model="newMaterial.number">M</el-input> -->
+                            <el-input v-model="newMaterial.id">M</el-input>
                         </el-form-item>
                         <el-form-item label="材料名称" prop="name">
                             <el-input v-model="newMaterial.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="材料类别" prop="type">
+                        <!-- <el-form-item label="材料类别" prop="type">
                             <el-select v-model="newMaterial.type" placeholder="请选择" style="width: 100%">
                                 <el-option label="金属材料" value="metal"></el-option>
                                 <el-option label="无机非金属材料" value="nonmetal"></el-option>
                                 <el-option label="复合材料" value="compound"></el-option>
                                 <el-option label="高分子材料" value="polymer"></el-option>
                             </el-select>
-                        </el-form-item>
+                        </el-form-item> -->
                         <el-form-item label="材料数目" prop="count">
                             <el-input v-model="newMaterial.count"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者" prop="owner">
                             <el-input v-model="newMaterial.owner"></el-input>
                         </el-form-item>
-                        <el-form-item label="描述">
+                        <!-- <el-form-item label="描述">
                             <el-input v-model="newMaterial.description" type="textarea" :rows="3"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -207,7 +211,7 @@ export default {
         });
 
         const rules = {
-            number: [
+            id: [
                 { required: true, message: "请输入编号", trigger: "blur" },
                 { min:1, max:20, message: "输入过长", trigger: "blur" },
             ],
@@ -215,9 +219,9 @@ export default {
                 { required: true, message: "请输入名称", trigger: "blur" },
                 { min:1, max:20, message: "名称过长", trigger: "blur" },
             ],
-            type: [
-                { required: true, message: "请选择类型", trigger: "blur" },
-            ],
+            // type: [
+            //     { required: true, message: "请选择类型", trigger: "blur" },
+            // ],
             count: [
                 { required: true, message: "请输入数目", trigger: "blur" },
             ],
@@ -228,12 +232,12 @@ export default {
         };
 
         const newMaterial = reactive({
-            number:"M",
+            id:"M",
             name:undefined,
-            type:undefined,
+            // type:undefined,
             count:undefined,
             owner:undefined,
-            description:undefined,
+            // description:undefined,
         });
 
         let detailDialogVisible = ref(false);
@@ -258,7 +262,7 @@ export default {
             tableDate.displayMaterials.splice(0,tableDate.displayMaterials.length);
             for (let index in temp){
                 if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName === ""){
-                    if(temp[index].number === tableDate.searchMaterialNumber){
+                    if(temp[index].id === tableDate.searchMaterialNumber){
                         // 添加符合要求的元素
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
@@ -268,7 +272,7 @@ export default {
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
                 }else if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName !== ""){
-                    if(temp[index].number === tableDate.searchMaterialNumber && temp[index].name === tableDate.searchMaterialName){
+                    if(temp[index].id === tableDate.searchMaterialNumber && temp[index].name === tableDate.searchMaterialName){
                         // 添加符合要求的元素
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
@@ -395,7 +399,7 @@ export default {
                     let temp = 0;
                     (tableDate.materials).forEach(function (item,index) {
                         console.log(item,index);
-                        if(newMaterial.number === item.number){
+                        if(newMaterial.id === item.id){
                             temp = 1;
                             ElMessage.error("编号已存在！");
                             return false;
@@ -425,6 +429,7 @@ export default {
                 //multipleTableRef.value.clearSelection();
                 tableDate.materials=[].concat(res);
                 tableDate.displayMaterials=[].concat(res);
+                console.log(tableDate.displayMaterials);
             }).catch((error) => {
                 console.log(error);
                 ElMessage.error("获取消息数据失败");

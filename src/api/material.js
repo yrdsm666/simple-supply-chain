@@ -5,7 +5,7 @@ export const getMaterial=(query) => {
     console.log('get all material');
     return request({
         //url: '/register_fail.json',
-        url: './material.json',
+        url: './material_simple.json',
         method: 'get',
         params: query,
     })
