@@ -373,7 +373,7 @@ export default {
                         })
                         // id是按选中的先后顺利排列
                         console.log(selectId+'---selectId');
-                        let query = {userId: "123", materialsId: selectId};
+                        let query = {id: selectId};
                         deleteMyMaterial(query).then((res) => {
                             //console.log(res);
                             tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
@@ -425,7 +425,7 @@ export default {
         }
 
         const getMyMaterialData = () => {
-            getMaterial({userId: "123"}).then((res) => {
+            getMaterial().then((res) => {
                 //multipleTableRef.value.clearSelection();
                 tableDate.materials=[].concat(res);
                 tableDate.displayMaterials=[].concat(res);

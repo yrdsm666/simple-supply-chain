@@ -4,8 +4,8 @@ import request from '../utils/request';
 export const getMaterial=(query) => {
     console.log('get all material');
     return request({
-        //url: '/register_fail.json',
-        url: './material_simple.json',
+        // url: '/material_simple.json',
+        url: '/list',
         method: 'get',
         params: query,
     })
@@ -14,8 +14,8 @@ export const getMaterial=(query) => {
 export const modifyMaterial=(query) => {
     console.log('modify a material');
     return request({
-        //url: '/register_fail.json',
-        url: './material.json',
+        // url: '/material.json',
+        url: '/update',
         method: 'post',
         data: query,
     })
@@ -24,8 +24,8 @@ export const modifyMaterial=(query) => {
 export const addMaterial=(query) => {
     console.log('add a material');
     return request({
-        //url: '/register_fail.json',
-        url: './addMaterial.json',
+        // url: '/addMaterial.json',
+        url: '/create',
         method: 'post',
         data: query,
     })
@@ -35,9 +35,9 @@ export const deleteMyMaterial=(query) => {
     console.log('delete a material');
     console.log(query);
     return request({
-        //url: '/register_fail.json',
-        url: './deleteMaterial.json',
-        method: 'delete',
+        //url: '/deleteMaterial.json',
+        url: '/delete',
+        method: 'get',
         params: query,
     })
 }
