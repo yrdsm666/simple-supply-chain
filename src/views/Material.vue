@@ -373,7 +373,7 @@ export default {
                         })
                         // id是按选中的先后顺利排列
                         console.log(selectId+'---selectId');
-                        let query = {id: selectId};
+                        let query = selectId;
                         deleteMyMaterial(query).then((res) => {
                             //console.log(res);
                             tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
