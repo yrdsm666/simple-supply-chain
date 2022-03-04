@@ -189,7 +189,7 @@
 
 <script>
 import { ref, reactive, onMounted } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElLoading, ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
 import { getMaterial, deleteMyMaterial, modifyMaterial, addMaterial } from "../api/material";
 
@@ -302,12 +302,20 @@ export default {
             formRef1.value.validate((valid) => {
                 console.log(valid);
                 if (valid) {
+                    const loading = ElLoading.service({
+                        lock: true,
+                        text: 'Loading',
+                        background: 'rgba(0, 0, 0, 0.7)',
+                    })
+
                     modifyMaterial(tableDate.nowMaterial).then((res) => {
                         getMyMaterialData();
                         ElMessage.success("修改成功！");
                     }).catch((error) => {
                         ElMessage.error("修改失败");
                     });
+
+                    loading.close();
                 } else {
                     ElMessage.error("信息不完整，请更正后提交！");
                     formRef1.value.resetFields();
@@ -374,6 +382,13 @@ export default {
                         // id是按选中的先后顺利排列
                         console.log(selectId+'---selectId');
                         let query = selectId;
+
+                        const loading = ElLoading.service({
+                            lock: true,
+                            text: 'Loading',
+                            background: 'rgba(0, 0, 0, 0.7)',
+                        })
+
                         deleteMyMaterial(query).then((res) => {
                             //console.log(res);
                             tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
@@ -385,6 +400,8 @@ export default {
                             console.log(error);
                             ElMessage.error("删除失败");
                         });
+
+                        loading.close();
                     }else{
                         ElMessage.error("请至少选中一个");
                     }
@@ -406,12 +423,20 @@ export default {
                         }
                     })
                     if(temp===0){
+                        const loading = ElLoading.service({
+                            lock: true,
+                            text: 'Loading',
+                            background: 'rgba(0, 0, 0, 0.7)',
+                        })
+
                         addMaterial(newMaterial).then((res) => {
                             getMyMaterialData();
                             ElMessage.success("添加成功！");
                         }).catch((error) => {
                             ElMessage.error("添加失败");
                         });
+
+                        loading.close();
                     }
                 } else {
                     ElMessage.error("信息不完整，请更正后提交！");
