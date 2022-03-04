@@ -37,7 +37,7 @@ export const deleteMyMaterial=(query) => {
     return request({
         //url: '/deleteMaterial.json',
         url: '/delete',
-        method: 'get',
-        params: query,
+        method: 'post',
+        data: query,
     })
 }
