@@ -18,10 +18,10 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Material.vue")
             }, {
-                path: "/donate",
-                name: "donate",
+                path: "/contact",
+                name: "contact",
                 meta: {
-                    title: '鼓励作者'
+                    title: '联系作者'
                 },
                 component: () => import ( /* webpackChunkName: "donate" */ "../views/Donate.vue")
             }

@@ -29,11 +29,12 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                                <el-dropdown-item>项目仓库</el-dropdown-item>
+                            <a href="https://github.com/yrdsm666/simple-supply-chain-front-end" target="_blank">
+                                <el-dropdown-item>项目前端</el-dropdown-item>
                             </a>
-<!--                            <el-dropdown-item command="user">个人中心</el-dropdown-item>-->
-                            <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                            <a href="https://github.com/zzz136454872/fablab-spring" target="_blank">
+                                <el-dropdown-item>项目后端</el-dropdown-item>
+                            </a>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>

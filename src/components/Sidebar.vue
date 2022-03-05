@@ -44,9 +44,9 @@ export default {
                 title: "材料管理",
             },
             {
-                icon: "el-icon-lx-redpacket_fill",
-                index: "/donate",
-                title: "支持作者",
+                icon: "el-icon-apple",
+                index: "/contact",
+                title: "联系作者",
             },
         ];
 

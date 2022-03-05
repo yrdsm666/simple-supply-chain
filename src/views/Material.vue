@@ -262,17 +262,20 @@ export default {
             tableDate.displayMaterials.splice(0,tableDate.displayMaterials.length);
             for (let index in temp){
                 if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName === ""){
-                    if(temp[index].id === tableDate.searchMaterialNumber){
+                    // if(temp[index].id === tableDate.searchMaterialNumber){
+                    if(fuzzyQuery(temp[index].id, tableDate.searchMaterialNumber)){
                         // 添加符合要求的元素
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
                 }else if(tableDate.searchMaterialNumber === "" && tableDate.searchMaterialName !== ""){
-                    if(temp[index].name === tableDate.searchMaterialName){
+                    // if(temp[index].name === tableDate.searchMaterialName){
+                    if(fuzzyQuery(temp[index].name, tableDate.searchMaterialName)){
                         // 添加符合要求的元素
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
                 }else if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName !== ""){
-                    if(temp[index].id === tableDate.searchMaterialNumber && temp[index].name === tableDate.searchMaterialName){
+                    // if(temp[index].id === tableDate.searchMaterialNumber && temp[index].name === tableDate.searchMaterialName){
+                    if(fuzzyQuery(temp[index].id, tableDate.searchMaterialNumber) && fuzzyQuery(temp[index].name, tableDate.searchMaterialName)){
                         // 添加符合要求的元素
                         tableDate.displayMaterials.splice(index, 0, temp[index]);
                     }
@@ -284,6 +287,14 @@ export default {
             //tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
             console.log(tableDate.materials);
         };
+
+        const fuzzyQuery = (str, key) => {
+            if(str.indexOf(key)===0){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
         const handleSearchInputReset = () => {
            tableDate.searchMaterialNumber = "";
@@ -310,12 +321,12 @@ export default {
 
                     modifyMaterial(tableDate.nowMaterial).then((res) => {
                         getMyMaterialData();
+                        loading.close();
                         ElMessage.success("修改成功！");
                     }).catch((error) => {
+                        loading.close();
                         ElMessage.error("修改失败");
                     });
-
-                    loading.close();
                 } else {
                     ElMessage.error("信息不完整，请更正后提交！");
                     formRef1.value.resetFields();
@@ -395,13 +406,13 @@ export default {
                             //  this.$refs.multipleTable.clearSelection(); vue2的写法
                             multipleTableRef.value.clearSelection(); //清除当前选中
                             tableDate.displayMaterials = [].concat(tableDate.materials);
+                            loading.close();
                             ElMessage.success("删除成功！");
                         }).catch((error) => {
                             console.log(error);
+                            loading.close();
                             ElMessage.error("删除失败");
                         });
-
-                        loading.close();
                     }else{
                         ElMessage.error("请至少选中一个");
                     }
@@ -431,12 +442,12 @@ export default {
 
                         addMaterial(newMaterial).then((res) => {
                             getMyMaterialData();
+                            loading.close();
                             ElMessage.success("添加成功！");
                         }).catch((error) => {
+                            loading.close();
                             ElMessage.error("添加失败");
                         });
-
-                        loading.close();
                     }
                 } else {
                     ElMessage.error("信息不完整，请更正后提交！");
