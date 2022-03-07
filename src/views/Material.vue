@@ -40,11 +40,6 @@
                             {{ scope.row.name }}
                         </template>
                     </el-table-column>
-                    <!-- <el-table-column label="类型" prop="type" width="180">
-                        <template #default="scope">
-                            {{ scope.row.type }}
-                        </template>
-                    </el-table-column> -->
                     <el-table-column label="数目">
                         <template #default="scope" >
                             {{ scope.row.count }}
@@ -60,15 +55,9 @@
                             <el-button type="text" icon="el-icon-tickets" class="green"
                                        @click="detailDialogVisible=true;handleDetail(scope.$index, scope.row)">详细</el-button>
                             <el-button type="text" icon="el-icon-edit" @click="editDialogVisible=true;handleDetail(scope.$index, scope.row)">编辑</el-button>
-<!--                            <el-button type="text" icon="el-icon-delete" class="red"-->
-<!--                                       @click="deleteMaterial(scope.$index)">删除</el-button>-->
                         </template>
                     </el-table-column>
                 </el-table>
-<!--                <div class="pagination">-->
-<!--                    <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"-->
-<!--                                   :page-size="tableData.message.Size" :total="pageTotal" @current-change="handlePageChange"></el-pagination>-->
-<!--                </div>-->
                 <el-dialog
                     v-model="detailDialogVisible"
                     title="材料详细信息"
@@ -76,24 +65,17 @@
                 >
                     <el-form :model="tableData.nowMaterial" label-width="70px">
                         <el-form-item label="材料编号">
-                            <!-- <el-input v-model="tableData.nowMaterial.number" :readonly="true"></el-input> -->
                             <el-input v-model="tableData.nowMaterial.id" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称">
                           <el-input v-model="tableData.nowMaterial.name" :readonly="true"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="材料类别">
-                          <el-input v-model="tableData.nowMaterial.type" :readonly="true"></el-input>
-                        </el-form-item> -->
                         <el-form-item label="材料数目">
                           <el-input v-model="tableData.nowMaterial.count" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者">
                             <el-input v-model="tableData.nowMaterial.owner" :readonly="true"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="描述">
-                            <el-input v-model="tableData.nowMaterial.description" :readonly="true" type="textarea" :rows="3"></el-input>
-                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -108,29 +90,17 @@
                 >
                     <el-form ref="formRef1" :model="tableData.nowMaterial" :rules="rules" label-width="80px">
                         <el-form-item label="材料编号">
-                            <!-- <el-input v-model="tableData.nowMaterial.number" disabled></el-input> -->
                             <el-input v-model="tableData.nowMaterial.id" disabled></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称" prop="name">
                             <el-input v-model="tableData.nowMaterial.name"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="材料类别" prop="type">
-                            <el-select v-model="tableData.nowMaterial.type" placeholder="请选择" style="width: 100%">
-                                <el-option label="金属材料" value="金属材料"></el-option>
-                                <el-option label="无机非金属材料" value="无机非金属材料"></el-option>
-                                <el-option label="复合材料" value="复合材料"></el-option>
-                                <el-option label="高分子材料" value="高分子材料"></el-option>
-                            </el-select>
-                        </el-form-item> -->
                         <el-form-item label="材料数目" prop="count">
                             <el-input v-model="tableData.nowMaterial.count"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者" prop="owner">
                             <el-input v-model="tableData.nowMaterial.owner"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="描述">
-                            <el-input v-model="tableData.nowMaterial.description" type="textarea" :rows="3"></el-input>
-                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -146,29 +116,17 @@
                 >
                     <el-form ref="formRef2" :model="newMaterial" :rules="rules" label-width="80px">
                         <el-form-item label="材料编号" prop="id">
-                            <!-- <el-input v-model="newMaterial.number">M</el-input> -->
                             <el-input v-model="newMaterial.id">M</el-input>
                         </el-form-item>
                         <el-form-item label="材料名称" prop="name">
                             <el-input v-model="newMaterial.name"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="材料类别" prop="type">
-                            <el-select v-model="newMaterial.type" placeholder="请选择" style="width: 100%">
-                                <el-option label="金属材料" value="metal"></el-option>
-                                <el-option label="无机非金属材料" value="nonmetal"></el-option>
-                                <el-option label="复合材料" value="compound"></el-option>
-                                <el-option label="高分子材料" value="polymer"></el-option>
-                            </el-select>
-                        </el-form-item> -->
                         <el-form-item label="材料数目" prop="count">
                             <el-input v-model="newMaterial.count"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者" prop="owner">
                             <el-input v-model="newMaterial.owner"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="描述">
-                            <el-input v-model="newMaterial.description" type="textarea" :rows="3"></el-input>
-                        </el-form-item> -->
                     </el-form>
                     <template #footer>
                         <span class="dialog-footer">
@@ -188,21 +146,18 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive} from "vue";
 import { ElLoading, ElMessage, ElMessageBox } from "element-plus";
-import { useRouter } from "vue-router";
 import { getMaterial, deleteMyMaterial, modifyMaterial, addMaterial } from "../api/material";
 
 export default {
     name: "tabs",
     setup() {
-        // const message = ref("first");
         const multipleTableRef = ref();
         const formRef1 = ref(null);
         const formRef2 = ref(null);
         const tableData = reactive({
-            materials: [
-            ],
+            materials: [],
             displayMaterials: [],
             nowMaterial: undefined,
             multipleSelection: [],
@@ -219,9 +174,6 @@ export default {
                 { required: true, message: "请输入名称", trigger: "blur" },
                 { min:1, max:20, message: "名称过长", trigger: "blur" },
             ],
-            // type: [
-            //     { required: true, message: "请选择类型", trigger: "blur" },
-            // ],
             count: [
                 { required: true, message: "请输入数目", trigger: "blur" },
             ],
@@ -234,10 +186,8 @@ export default {
         const newMaterial = reactive({
             id:"M",
             name:undefined,
-            // type:undefined,
             count:undefined,
             owner:undefined,
-            // description:undefined,
         });
 
         let detailDialogVisible = ref(false);
@@ -301,45 +251,6 @@ export default {
                 }
             });
         }
-        // const handleRead = (index) => {
-        //     const item = state.message.splice(index, 1);
-        //     console.log(item);
-        //     state.read = item.concat(state.read);
-        // };
-        // const handleDel = (index) => {
-        //     const item = state.read.splice(index, 1);
-        //     state.recycle = item.concat(state.recycle);
-        // };
-        // const handleRestore = (index) => {
-        //     const item = state.recycle.splice(index, 1);
-        //     state.read = item.concat(state.read);
-        // };
-        // const deleteMaterial = (index) => {
-        //     ElMessageBox.confirm("确定要删除吗？", "提示", {
-        //       type: "warning",
-        //     })
-        //         .then(() => {
-        //             const item = tableData.materials.splice(index, 1);
-        //             console.log(item);
-        //             console.log(item[0].id);
-        //             deleteMyMaterial({userId: "123", materialsId: [item[0].id]}).then((res) => {
-        //                 console.log('res:',res);
-        //
-        //                 //在已选列表multipleSelection中清除刚刚被删的行
-        //                 let a = tableData.multipleSelection.indexOf(item[0]);
-        //                 if(a !== -1){
-        //                     tableData.multipleSelection.splice(a, 1);
-        //                 }
-        //                 console.log(tableData.multipleSelection);
-        //                 ElMessage.success("删除成功！");
-        //
-        //             }).catch((error) => {
-        //                 console.log(error);
-        //                 ElMessage.error("删除失败");
-        //             });
-        //         })
-        //         .catch(() => {});
-        // }
 
         const deleteSelectMaterial = () => {
             ElMessageBox.confirm("确定要删除选中吗？", "提示", {
@@ -455,12 +366,8 @@ export default {
             handleSelectionChange,
             handleModify,
             getRowKey,
-            // handleRead,
-            // handleDel,
-            // handleRestore,
             handleDetail,
             handleSearch,
-            // deleteMaterial,
             deleteSelectMaterial,
             addNewMaterial,
             addNewMaterialReset,
