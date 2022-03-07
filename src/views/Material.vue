@@ -7,9 +7,9 @@
         </div>
         <div class="container">
             <span style="margin-right: 15px; font-size: 15px">材料编号：</span>
-            <el-input v-model="tableDate.searchMaterialNumber" placeholder="材料编号" class="handle-input mr10"></el-input>
+            <el-input v-model="tableData.searchMaterialNumber" placeholder="材料编号" class="handle-input mr10"></el-input>
             <span style="margin-right: 15px; font-size: 15px; margin-left: 30px">材料名称：</span>
-            <el-input v-model="tableDate.searchMaterialName" placeholder="材料名称" class="handle-input mr10"></el-input>
+            <el-input v-model="tableData.searchMaterialName" placeholder="材料名称" class="handle-input mr10"></el-input>
             <div style="float: right">
                 <el-button icon="el-icon-refresh" @click="handleSearchInputReset()" style="color: #696969">重置</el-button>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch()">搜索</el-button>
@@ -18,7 +18,7 @@
         <div class="container">
             <div>
                 <el-table ref="multipleTableRef"
-                          :data="tableDate.displayMaterials"
+                          :data="tableData.displayMaterials"
                           style="width: 100%"
                           border
                           @selection-change="handleSelectionChange"
@@ -67,32 +67,32 @@
                 </el-table>
 <!--                <div class="pagination">-->
 <!--                    <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"-->
-<!--                                   :page-size="tableDate.message.Size" :total="pageTotal" @current-change="handlePageChange"></el-pagination>-->
+<!--                                   :page-size="tableData.message.Size" :total="pageTotal" @current-change="handlePageChange"></el-pagination>-->
 <!--                </div>-->
                 <el-dialog
                     v-model="detailDialogVisible"
                     title="材料详细信息"
                     width="30%"
                 >
-                    <el-form :model="tableDate.nowMaterial" label-width="70px">
+                    <el-form :model="tableData.nowMaterial" label-width="70px">
                         <el-form-item label="材料编号">
-                            <!-- <el-input v-model="tableDate.nowMaterial.number" :readonly="true"></el-input> -->
-                            <el-input v-model="tableDate.nowMaterial.id" :readonly="true"></el-input>
+                            <!-- <el-input v-model="tableData.nowMaterial.number" :readonly="true"></el-input> -->
+                            <el-input v-model="tableData.nowMaterial.id" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称">
-                          <el-input v-model="tableDate.nowMaterial.name" :readonly="true"></el-input>
+                          <el-input v-model="tableData.nowMaterial.name" :readonly="true"></el-input>
                         </el-form-item>
                         <!-- <el-form-item label="材料类别">
-                          <el-input v-model="tableDate.nowMaterial.type" :readonly="true"></el-input>
+                          <el-input v-model="tableData.nowMaterial.type" :readonly="true"></el-input>
                         </el-form-item> -->
                         <el-form-item label="材料数目">
-                          <el-input v-model="tableDate.nowMaterial.count" :readonly="true"></el-input>
+                          <el-input v-model="tableData.nowMaterial.count" :readonly="true"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者">
-                            <el-input v-model="tableDate.nowMaterial.owner" :readonly="true"></el-input>
+                            <el-input v-model="tableData.nowMaterial.owner" :readonly="true"></el-input>
                         </el-form-item>
                         <!-- <el-form-item label="描述">
-                            <el-input v-model="tableDate.nowMaterial.description" :readonly="true" type="textarea" :rows="3"></el-input>
+                            <el-input v-model="tableData.nowMaterial.description" :readonly="true" type="textarea" :rows="3"></el-input>
                         </el-form-item> -->
                     </el-form>
                     <template #footer>
@@ -106,16 +106,16 @@
                     title="编辑材料信息"
                     width="30%"
                 >
-                    <el-form ref="formRef1" :model="tableDate.nowMaterial" :rules="rules" label-width="80px">
+                    <el-form ref="formRef1" :model="tableData.nowMaterial" :rules="rules" label-width="80px">
                         <el-form-item label="材料编号">
-                            <!-- <el-input v-model="tableDate.nowMaterial.number" disabled></el-input> -->
-                            <el-input v-model="tableDate.nowMaterial.id" disabled></el-input>
+                            <!-- <el-input v-model="tableData.nowMaterial.number" disabled></el-input> -->
+                            <el-input v-model="tableData.nowMaterial.id" disabled></el-input>
                         </el-form-item>
                         <el-form-item label="材料名称" prop="name">
-                            <el-input v-model="tableDate.nowMaterial.name"></el-input>
+                            <el-input v-model="tableData.nowMaterial.name"></el-input>
                         </el-form-item>
                         <!-- <el-form-item label="材料类别" prop="type">
-                            <el-select v-model="tableDate.nowMaterial.type" placeholder="请选择" style="width: 100%">
+                            <el-select v-model="tableData.nowMaterial.type" placeholder="请选择" style="width: 100%">
                                 <el-option label="金属材料" value="金属材料"></el-option>
                                 <el-option label="无机非金属材料" value="无机非金属材料"></el-option>
                                 <el-option label="复合材料" value="复合材料"></el-option>
@@ -123,13 +123,13 @@
                             </el-select>
                         </el-form-item> -->
                         <el-form-item label="材料数目" prop="count">
-                            <el-input v-model="tableDate.nowMaterial.count"></el-input>
+                            <el-input v-model="tableData.nowMaterial.count"></el-input>
                         </el-form-item>
                         <el-form-item label="拥有者" prop="owner">
-                            <el-input v-model="tableDate.nowMaterial.owner"></el-input>
+                            <el-input v-model="tableData.nowMaterial.owner"></el-input>
                         </el-form-item>
                         <!-- <el-form-item label="描述">
-                            <el-input v-model="tableDate.nowMaterial.description" type="textarea" :rows="3"></el-input>
+                            <el-input v-model="tableData.nowMaterial.description" type="textarea" :rows="3"></el-input>
                         </el-form-item> -->
                     </el-form>
                     <template #footer>
@@ -200,7 +200,7 @@ export default {
         const multipleTableRef = ref();
         const formRef1 = ref(null);
         const formRef2 = ref(null);
-        const tableDate = reactive({
+        const tableData = reactive({
             materials: [
             ],
             displayMaterials: [],
@@ -246,8 +246,8 @@ export default {
 
         const handleSelectionChange = (val) => {
             console.log(val);
-            tableDate.multipleSelection = val;
-            console.log(tableDate.multipleSelection);
+            tableData.multipleSelection = val;
+            console.log(tableData.multipleSelection);
         };
 
         const getRowKey = (row) => {
@@ -256,60 +256,27 @@ export default {
 
         // 查询操作
         const handleSearch = () => {
-            //getMyMaterialData();
-            let temp = [].concat(tableDate.materials);
-            // 清空数组
-            tableDate.displayMaterials.splice(0,tableDate.displayMaterials.length);
-            for (let index in temp){
-                if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName === ""){
-                    // if(temp[index].id === tableDate.searchMaterialNumber){
-                    if(fuzzyQuery(temp[index].id, tableDate.searchMaterialNumber)){
-                        // 添加符合要求的元素
-                        tableDate.displayMaterials.splice(index, 0, temp[index]);
-                    }
-                }else if(tableDate.searchMaterialNumber === "" && tableDate.searchMaterialName !== ""){
-                    // if(temp[index].name === tableDate.searchMaterialName){
-                    if(fuzzyQuery(temp[index].name, tableDate.searchMaterialName)){
-                        // 添加符合要求的元素
-                        tableDate.displayMaterials.splice(index, 0, temp[index]);
-                    }
-                }else if(tableDate.searchMaterialNumber !== "" && tableDate.searchMaterialName !== ""){
-                    // if(temp[index].id === tableDate.searchMaterialNumber && temp[index].name === tableDate.searchMaterialName){
-                    if(fuzzyQuery(temp[index].id, tableDate.searchMaterialNumber) && fuzzyQuery(temp[index].name, tableDate.searchMaterialName)){
-                        // 添加符合要求的元素
-                        tableDate.displayMaterials.splice(index, 0, temp[index]);
-                    }
-                }else{
-                    tableDate.displayMaterials = [].concat(tableDate.materials);
-                }
-            }
-            multipleTableRef.value.clearSelection();
-            //tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
-            console.log(tableDate.materials);
+            tableData.displayMaterials.splice(0,tableData.displayMaterials.length);
+            tableData.materials.forEach((item)=>{
+                if(item.id.startsWith(tableData.searchMaterialNumber)&&item.name.startsWith(tableData.searchMaterialName))
+                    tableData.displayMaterials.push(item);
+            })
         };
 
-        const fuzzyQuery = (str, key) => {
-            if(str.indexOf(key)===0){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
         const handleSearchInputReset = () => {
-           tableDate.searchMaterialNumber = "";
-           tableDate.searchMaterialName = "";
+           tableData.searchMaterialNumber = "";
+           tableData.searchMaterialName = "";
         }
 
         const handleDetail = (index, row) => {
             console.log(row);
             // 深拷贝如下
-            // 这里最好不直接使用 = ，因为修改失败时，我们不希望 tableDate.nowMaterial 的变化引起 row 的变化
-            tableDate.nowMaterial = JSON.parse(JSON.stringify(row));
+            // 这里最好不直接使用 = ，因为修改失败时，我们不希望 tableData.nowMaterial 的变化引起 row 的变化
+            tableData.nowMaterial = JSON.parse(JSON.stringify(row));
         }
 
         const handleModify = () => {
-            console.log(tableDate.nowMaterial);
+            console.log(tableData.nowMaterial);
             formRef1.value.validate((valid) => {
                 console.log(valid);
                 if (valid) {
@@ -319,7 +286,7 @@ export default {
                         background: 'rgba(0, 0, 0, 0.7)',
                     })
 
-                    modifyMaterial(tableDate.nowMaterial).then((res) => {
+                    modifyMaterial(tableData.nowMaterial).then((res) => {
                         getMyMaterialData();
                         loading.close();
                         ElMessage.success("修改成功！");
@@ -352,18 +319,18 @@ export default {
         //       type: "warning",
         //     })
         //         .then(() => {
-        //             const item = tableDate.materials.splice(index, 1);
+        //             const item = tableData.materials.splice(index, 1);
         //             console.log(item);
         //             console.log(item[0].id);
         //             deleteMyMaterial({userId: "123", materialsId: [item[0].id]}).then((res) => {
         //                 console.log('res:',res);
         //
         //                 //在已选列表multipleSelection中清除刚刚被删的行
-        //                 let a = tableDate.multipleSelection.indexOf(item[0]);
+        //                 let a = tableData.multipleSelection.indexOf(item[0]);
         //                 if(a !== -1){
-        //                     tableDate.multipleSelection.splice(a, 1);
+        //                     tableData.multipleSelection.splice(a, 1);
         //                 }
-        //                 console.log(tableDate.multipleSelection);
+        //                 console.log(tableData.multipleSelection);
         //                 ElMessage.success("删除成功！");
         //
         //             }).catch((error) => {
@@ -382,12 +349,12 @@ export default {
                     // multipleSelection中包含了选中行的所有信息，这里只用到了id
                     let selectId=[];
 
-                    if(tableDate.multipleSelection.length !== 0){
-                        (tableDate.multipleSelection).forEach(function (item,index) {
+                    if(tableData.multipleSelection.length !== 0){
+                        (tableData.multipleSelection).forEach(function (item,index) {
                             console.log(item,index);
                             if(item){
                                 selectId.push(item.id);
-                                tableDate.materials.splice(tableDate.materials.indexOf(item), 1);
+                                tableData.materials.splice(tableData.materials.indexOf(item), 1);
                             }
                         })
                         // id是按选中的先后顺利排列
@@ -402,10 +369,10 @@ export default {
 
                         deleteMyMaterial(query).then((res) => {
                             //console.log(res);
-                            tableDate.multipleSelection.splice(0,tableDate.multipleSelection.length);//清空数组
+                            tableData.multipleSelection.splice(0,tableData.multipleSelection.length);//清空数组
                             //  this.$refs.multipleTable.clearSelection(); vue2的写法
                             multipleTableRef.value.clearSelection(); //清除当前选中
-                            tableDate.displayMaterials = [].concat(tableDate.materials);
+                            tableData.displayMaterials = [].concat(tableData.materials);
                             loading.close();
                             ElMessage.success("删除成功！");
                         }).catch((error) => {
@@ -425,7 +392,7 @@ export default {
             formRef2.value.validate((valid) => {
                 if (valid) {
                     let temp = 0;
-                    (tableDate.materials).forEach(function (item,index) {
+                    (tableData.materials).forEach(function (item,index) {
                         console.log(item,index);
                         if(newMaterial.id === item.id){
                             temp = 1;
@@ -463,9 +430,9 @@ export default {
         const getMyMaterialData = () => {
             getMaterial().then((res) => {
                 //multipleTableRef.value.clearSelection();
-                tableDate.materials=[].concat(res);
-                tableDate.displayMaterials=[].concat(res);
-                console.log(tableDate.displayMaterials);
+                tableData.materials=[].concat(res);
+                tableData.displayMaterials=[].concat(res);
+                console.log(tableData.displayMaterials);
             }).catch((error) => {
                 console.log(error);
                 ElMessage.error("获取消息数据失败");
@@ -479,7 +446,7 @@ export default {
             formRef1,
             formRef2,
             multipleTableRef,
-            tableDate,
+            tableData,
             newMaterial,
             editDialogVisible,
             detailDialogVisible,

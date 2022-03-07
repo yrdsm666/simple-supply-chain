@@ -23,7 +23,7 @@ const routes = [
                 meta: {
                     title: '联系作者'
                 },
-                component: () => import ( /* webpackChunkName: "donate" */ "../views/Donate.vue")
+                component: () => import ( /* webpackChunkName: "donate" */ "../views/Contact.vue")
             }
         ]
     }, 
