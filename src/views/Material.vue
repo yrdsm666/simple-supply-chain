@@ -204,10 +204,14 @@ export default {
             return row.id;
         };
 
-        // 查询操作
+        // 过滤查询操作
         const handleSearch = () => {
+            // displayMaterials 中的内容将会显示在界面的表格中
+            // 清空 displayMaterials 数组
             tableData.displayMaterials.splice(0,tableData.displayMaterials.length);
             tableData.materials.forEach((item)=>{
+                // 将符合要求的元素添加进 displayMaterials 中，使其显示在前端
+                // 模糊匹配：检测字符串是否以指定的子字符串开始
                 if(item.id.startsWith(tableData.searchMaterialNumber)&&item.name.startsWith(tableData.searchMaterialName))
                     tableData.displayMaterials.push(item);
             })
